@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Native-feel: kill text-selection outside inputs ───────────────────── */
+body {
+  -webkit-user-select: none;
+  user-select: none;
+}
+input, textarea, [contenteditable] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter,
+    "Segoe UI", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  background:
+    radial-gradient(1400px 700px at 80% -20%, rgba(0, 122, 255, 0.05), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgba(48, 209, 88, 0.025), transparent 60%),
+    #121212;
+  color: #f2f2f2;
+}
+
+/* Slim dark scrollbars */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Tauri drag region: pointer cursor reset */
+[data-tauri-drag-region] {
+  cursor: default;
+}
+
+@layer components {
+  /* ── Surfaces ─────────────────────────────────────────────── */
+  .panel {
+    @apply bg-panel border border-border rounded-lg shadow-panel;
+  }
+  .panel-flat {
+    @apply bg-panel border border-border rounded-lg;
+  }
+  .panel-header {
+    @apply px-3 h-9 flex items-center text-[11px] uppercase tracking-wider
+           text-muted font-medium border-b border-border select-none;
+  }
+
+  /* ── Buttons ──────────────────────────────────────────────── */
+  .btn {
+    @apply inline-flex items-center justify-center gap-1.5 px-3 h-7 rounded-sm text-[13px]
+           bg-panel-2 border border-border text-text
+           hover:bg-panel-3 active:bg-panel
+           transition-colors disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+  .btn-sm {
+    @apply h-6 px-2 text-xs;
+  }
+  .btn-accent {
+    @apply btn bg-accent border-accent text-white
+           hover:bg-accent-hover active:bg-accent-dim;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-1.5 px-3 h-7 rounded-sm text-[13px]
+           text-text-dim hover:text-text hover:bg-white/5 active:bg-white/10
+           transition-colors;
+  }
+  .btn-danger {
+    @apply btn border-err/40 text-err hover:bg-err/10 hover:border-err/60;
+  }
+
+  /* ── Inputs ───────────────────────────────────────────────── */
+  .input {
+    @apply bg-black/30 border border-border rounded-sm px-2 h-7 text-[13px] text-text
+           placeholder:text-muted-2
+           focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/40;
+  }
+  .input-sm {
+    @apply h-6 text-xs;
+  }
+
+  /* ── Atoms ────────────────────────────────────────────────── */
+  .chip {
+    @apply inline-flex items-center gap-1 text-[10px] uppercase tracking-wider
+           px-1.5 h-5 rounded-xs bg-panel-2 border border-border text-muted font-medium;
+  }
+  .pill {
+    @apply inline-flex items-center gap-1 text-[11px] px-2 h-5 rounded-full
+           bg-white/5 border border-border text-text-dim;
+  }
+  .kbd {
+    @apply inline-flex items-center justify-center px-1.5 h-5 rounded-xs
+           bg-panel-2 border border-border text-[10px] text-muted font-mono;
+  }
+
+  /* ── Segmented control (Mac-style) ───────────────────────── */
+  .segmented {
+    @apply inline-flex items-center bg-black/40 border border-border rounded p-0.5 gap-0.5;
+  }
+  .segmented > button {
+    @apply px-3 h-6 rounded-xs text-[12px] text-text-dim
+           hover:text-text transition-colors;
+  }
+  .segmented > button[data-active="true"] {
+    @apply bg-panel-3 text-text shadow-panel-sm;
+  }
+
+  /* ── Drag handles ─────────────────────────────────────────── */
+  .titlebar-drag {
+    -webkit-app-region: drag;
+  }
+  .no-drag {
+    -webkit-app-region: no-drag;
+  }
+}
+
+/* ── App window: rounded corners (custom decorations) ─────── */
+.app-window {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #121212;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
